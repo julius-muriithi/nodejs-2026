@@ -1,0 +1,23 @@
+require("dotenv").config();
+const MongoConnection = require("./database/db");
+const express = require("express");
+const authRoutes = require("./routes/auth-routes");
+const homeRoutes = require("./routes/home-routes");
+const adminRoutes = require("./routes/admin-routes");
+const imageRoutes = require("./routes/image-routes");
+MongoConnection();
+
+const app = express();
+const PORT = process.env.PORT;
+
+//middelewares
+app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/home", homeRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/image", imageRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running at port:${PORT}`);
+});
